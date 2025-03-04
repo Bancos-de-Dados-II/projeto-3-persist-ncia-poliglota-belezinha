@@ -1,0 +1,81 @@
+.buscar-localizacao {
+    display: flex;
+    height: 130px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    margin-left: 40px;
+  }
+  /* .buscar-localizacao,
+  h4 {
+    font-weight: bold;
+    font-size: x-large;
+    color: #353535;
+  } */
+  #search {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    height: 30px;
+    width: 340px;
+    padding: 10px;
+    margin-top: 44px;
+   
+  }
+ 
+  #search-btn {
+    height: 30px;
+    width: 60px;
+    padding: 4px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    margin-top: 50px;
+  }
+  #search-btn:hover {
+    background-color: #008bff;
+  }
+  .content{
+      display: flex;
+   
+    flex-direction: column;
+    align-items: center;
+   justify-content: space-evenly;
+ }
+  
+  .icon {
+    width: 50px; 
+    height: 50px;
+    margin: 20px;
+    display: inline-block;
+    background-image: url("../img/home-address.png"); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: balancar 4s ease-in-out infinite; 
+  }
+
+  
+  @keyframes balancar {
+    0%,
+    80%,
+    100% {
+      
+      transform: rotate(0deg);
+    }
+    85% {
+   
+      transform: rotate(-15deg);
+    }
+    90% {
+     
+      transform: rotate(15deg);
+    }
+    95% {
+     
+      transform: rotate(-15deg);
+    }
+  }
