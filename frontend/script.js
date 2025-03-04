@@ -277,6 +277,33 @@ async function saveLocation(lat, lng, dados, metodo, url) {
       alert("Preencha os dados do cadasdro do imovel.");
     }
 
+    //verificando o titulo
+    if(dados.titulo !== "Aluguel" || dados.titulo !== "Venda" || !dados.titulo){
+      alert("Titulo inválido, digite um titulo válido");
+    }
+
+    //verificando o nome
+    if(dados.nome.length < 3 || !dados.nome){
+      alert("Nome inválido, digite um nome válido com mais de 3 caracteres");
+    }
+
+    //verificando o contato
+    if (!/^\(\d{2}\)\d{8,9}$/.test(dados.contato)) {
+      alert("Contato inválido. Digite no formato (99)123456789");
+      return;
+    }
+
+    //verificando a descrição
+    if(descricao.length < 10 || !dados.descricao){
+      alert("Descrição inválida, digite uma descrição válida com mais de 10 caracteres");
+    }
+
+    //verificando o valor
+    if(dados.valor <=0 || isNaN(dados.valor) || !dados.valor){
+      alert("Valor inválido, digite um número maior que 0");
+    }
+
+
     const response = await fetch("http://localhost:3000/api/imoveis", {
       method: "POST",
       headers: {
@@ -291,7 +318,7 @@ async function saveLocation(lat, lng, dados, metodo, url) {
       alert("Localização salva com sucesso!");
       location.reload();
     } else {
-      alert("Erro ao salvar localização 1.");
+      alert("Erro ao salvar localização.");
     }
 
     console.log(lat, lng, dados);
