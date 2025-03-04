@@ -156,6 +156,35 @@ async function editLocation(id) {
         valor,
         contato,
       };
+    
+      //verificando o titulo
+      if((data.titulo.toLowerCase() !== "aluguel" && data.titulo.toLowerCase() !== "venda")){
+        alert("Titulo inválido, digite um titulo válido");
+        return;
+      }
+    
+      //verificando o nome
+      if(data.nome.length < 3){
+        alert("Nome inválido, digite um nome válido com mais de 3 caracteres");
+        return;
+      }
+    
+      //verificando a descrição
+      if(data.descricao.length < 10){
+        alert("Descrição inválida, digite uma descrição válida com mais de 10 caracteres");
+        return;
+      }
+    
+      //verificando o valor
+      if(data.valor <=0 || isNaN(data.valor)){
+        alert("Valor inválido, digite um número maior que 0");
+        return;
+      }
+      //verificando o contato
+      if (!/^\(\d{2}\)\d{8,9}$/.test(data.contato)) {
+        alert("Contato inválido. Digite no formato (99)123456789");
+        return;
+      }
 
 
         console.log(data,"data")
@@ -267,41 +296,6 @@ async function saveLocation(lat, lng, dados, metodo, url) {
     console.log(url, metodo, dados, "metodo no savelocation");
     // Substitua esta URL pela sua API para salvar os dados no banco
 
-    if (
-      !dados.titulo ||
-      !dados.nome ||
-      !dados.contato ||
-      !dados.descricao ||
-      !dados.valor
-    ) {
-      alert("Preencha os dados do cadasdro do imovel.");
-    }
-
-    //verificando o titulo
-    if(dados.titulo !== "Aluguel" || dados.titulo !== "Venda" || !dados.titulo){
-      alert("Titulo inválido, digite um titulo válido");
-    }
-
-    //verificando o nome
-    if(dados.nome.length < 3 || !dados.nome){
-      alert("Nome inválido, digite um nome válido com mais de 3 caracteres");
-    }
-
-    //verificando o contato
-    if (!/^\(\d{2}\)\d{8,9}$/.test(dados.contato)) {
-      alert("Contato inválido. Digite no formato (99)123456789");
-      return;
-    }
-
-    //verificando a descrição
-    if(descricao.length < 10 || !dados.descricao){
-      alert("Descrição inválida, digite uma descrição válida com mais de 10 caracteres");
-    }
-
-    //verificando o valor
-    if(dados.valor <=0 || isNaN(dados.valor) || !dados.valor){
-      alert("Valor inválido, digite um número maior que 0");
-    }
 
 
     const response = await fetch("http://localhost:3000/api/imoveis", {
@@ -354,6 +348,47 @@ document.getElementById("imovelForm").addEventListener("submit", (e) => {
     valor,
     contato,
   });
+
+  if (
+    !titulo ||
+    !nome ||
+    !contato ||
+    !descricao ||
+    !valor
+  ) {
+    alert("Preencha os dados do cadasdro do imovel.");
+    return;
+  }
+
+  //verificando o titulo
+  if((titulo.toLowerCase() !== "aluguel" && titulo.toLowerCase() !== "venda")){
+    alert("Titulo inválido, digite um titulo válido");
+    return;
+  }
+
+  //verificando o nome
+  if(nome.length < 3){
+    alert("Nome inválido, digite um nome válido com mais de 3 caracteres");
+    return;
+  }
+
+  //verificando a descrição
+  if(descricao.length < 10){
+    alert("Descrição inválida, digite uma descrição válida com mais de 10 caracteres");
+    return;
+  }
+
+  //verificando o valor
+  if(valor <=0 || isNaN(valor)){
+    alert("Valor inválido, digite um número maior que 0");
+    return;
+  }
+  //verificando o contato
+  if (!/^\(\d{2}\)\d{8,9}$/.test(contato)) {
+    alert("Contato inválido. Digite no formato (99)123456789");
+    return;
+  }
+
   alert("Formulário enviado com sucesso!");
   alert("Escolha a Localizacao Do imovel no map e clique para salvar");
 
