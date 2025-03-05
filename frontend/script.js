@@ -40,7 +40,7 @@ async function loadLocations() {
   , "location ")
     // Adiciona um marcador para cada localização
     locations.forEach((location) => {
-      const {  titulo, nome, descricao, contato, valor, localizacao } =
+      const {  titulo, tipo, nome, descricao, contato, valor, localizacao } =
         location;
         const[longitude , latitude] = localizacao.coordinates;
       console.log(location.id, "id no map");
@@ -61,6 +61,7 @@ async function loadLocations() {
       // Adiciona o popup (detalhes ao clicar)
       const popupContent = `
                 <b>${titulo}</b><br>
+                <p><strong>Tipo:</strong> ${tipo}</p>
                 <p><strong>Nome:</strong> ${nome}</p>
                 <p><strong>Descrição:</strong> ${descricao}</p>
                 <p><strong>Valor:</strong> R$ ${Intl.NumberFormat("pt-BR", {
@@ -129,6 +130,7 @@ async function editLocation(id) {
     // Preencher o formulário com os dados do imóvel
     document.getElementById("imovelId").value = imovel.id;
     document.getElementById("titulo").value = imovel.titulo;
+    document.getElementById("tipo").value = imovel.tipo;
     document.getElementById("nome").value = imovel.nome;
     document.getElementById("descricao").value = imovel.descricao;
     document.getElementById("valor").value = imovel.valor;
@@ -143,6 +145,7 @@ async function editLocation(id) {
       e.preventDefault();
 
       const titulo = document.getElementById("titulo").value;
+      const tipo = document.getElementById("tipo").value;
       const nome = document.getElementById("nome").value;
       const descricao = document.getElementById("descricao").value;
       const valor = parseFloat(document.getElementById("valor").value);
@@ -151,18 +154,27 @@ async function editLocation(id) {
       const data = {
        
         titulo,
+        tipo,
         nome,
         descricao,
         valor,
         contato,
       };
+
+      const tiposValidos = ["casa", "apartamento", "sobrado", "chácara", "kitnet", "terreno", "pousada"];
     
-      //verificando o titulo
-      if((data.titulo.toLowerCase() !== "aluguel" && data.titulo.toLowerCase() !== "venda")){
-        alert("Titulo inválido, digite um titulo válido");
+      // Verificando o título (tipo de imóvel)
+      if (!tiposValidos.includes(titulo.toLowerCase())) {
+        alert("Título inválido, digite um título válido (exemplo: casa, apartamento, sobrado, etc.)");
         return;
       }
     
+      //verificando o tipo (aluguel ou venda)
+      if((data.tipo.toLowerCase() !== "aluguel" && data.tipo.toLowerCase() !== "venda")){
+        alert("Tipo inválido, digite um tipo válido ( Aluguel ou venda )");
+        return;
+      }
+
       //verificando o nome
       if(data.nome.length < 3){
         alert("Nome inválido, digite um nome válido com mais de 3 caracteres");
@@ -229,6 +241,7 @@ async function editLocation(id) {
             body: JSON.stringify({
              
               titulo,
+              tipo,
               nome,
               descricao,
               valor,
@@ -326,8 +339,10 @@ async function saveLocation(lat, lng, dados, metodo, url) {
 // }
 let p1;
 let p2;
+const tiposValidos = ["casa", "apartamento", "sobrado", "chácara", "kitnet", "terreno", "pousada"];
 
 let titulo;
+let tipo;
 let nome;
 let descricao;
 let valor;
@@ -336,6 +351,7 @@ let marker1;
 document.getElementById("imovelForm").addEventListener("submit", (e) => {
   e.preventDefault();
   titulo = document.getElementById("titulo").value;
+  tipo = document.getElementById("tipo").value;
   nome = document.getElementById("nome").value;
   descricao = document.getElementById("descricao").value;
   valor = document.getElementById("valor").value;
@@ -343,6 +359,7 @@ document.getElementById("imovelForm").addEventListener("submit", (e) => {
 
   console.log("Dados do formulário:", {
     titulo,
+    tipo,
     nome,
     descricao,
     valor,
@@ -351,6 +368,7 @@ document.getElementById("imovelForm").addEventListener("submit", (e) => {
 
   if (
     !titulo ||
+    !tipo ||
     !nome ||
     !contato ||
     !descricao ||
@@ -360,9 +378,17 @@ document.getElementById("imovelForm").addEventListener("submit", (e) => {
     return;
   }
 
-  //verificando o titulo
-  if((titulo.toLowerCase() !== "aluguel" && titulo.toLowerCase() !== "venda")){
-    alert("Titulo inválido, digite um titulo válido");
+  
+    
+  // Verificando o título (tipo de imóvel)
+  if (!tiposValidos.includes(titulo.toLowerCase())) {
+    alert("Título inválido, digite um título válido (exemplo: casa, apartamento, sobrado, etc.)");
+    return;
+  }
+
+  //verificando o tipo
+  if((tipo.toLowerCase() !== "aluguel" && tipo.toLowerCase() !== "venda")){
+    alert("Tipo inválido, digite um tipo válido (Aluguel ou Venda");
     return;
   }
 
@@ -421,7 +447,7 @@ marker.on("click", async () => {
   p2 = position.lng;
 
   console.log(p1, p2, "p1 e p2");
-  const dados = { titulo, nome, descricao, valor, contato };
+  const dados = { titulo, tipo, nome, descricao, valor, contato };
 
   console.log(typeof dados);
   if (!dados.titulo) {

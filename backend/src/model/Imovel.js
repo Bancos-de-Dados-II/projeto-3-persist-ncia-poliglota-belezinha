@@ -7,6 +7,10 @@ const imovelSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  tipo: {
+    type: String,
+    required: true,
+  },
   nome: {
     type: String,
     required: true,

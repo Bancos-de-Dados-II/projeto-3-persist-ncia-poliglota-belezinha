@@ -18,6 +18,7 @@ export default class CriarImovelController {
       // Criação do objeto de imóvel
       const imovel = new Imovel({
         titulo: dados.titulo,
+        tipo: dados.tipo,
         nome: dados.nome,
         descricao: dados.descricao,
         valor: parseFloat(dados.valor), // Garantir que o valor seja um número

@@ -4,7 +4,7 @@ export default class EditarImovelController {
   static async editar(req, res) {
     try {
       const { id } = req.params;
-      const { titulo, nome, descricao, valor, contato, latitude, longitude } = req.body;
+      const { titulo, tipo, nome, descricao, valor, contato, latitude, longitude } = req.body;
       
       console.log(req.body, id, "valor ee")
       // Verificar se latitude e longitude são fornecidos
@@ -20,6 +20,7 @@ export default class EditarImovelController {
       // Atualiza o imóvel com o novo título, nome, descrição, valor e coordenadas
       const imovel = await Imovel.findByIdAndUpdate(id, {
         titulo,
+        tipo,
         nome,
         descricao,
         valor,  // Converter o valor para número
