@@ -1,5 +1,5 @@
 import Imovel from '../model/Imovel.js';
-
+import {redisClient} from '../database/redisClient.js';
 export default class EditarImovelController {
   static async editar(req, res) {
     try {
@@ -29,7 +29,7 @@ export default class EditarImovelController {
           coordinates: [longitude, latitude],  // Corrigido para o nome correto 'localizacao'
         },
       }, { new: true });
-
+       await redisClient.del('imoveis');
        console.log(imovel, "imovel")
       if (!imovel) {
         return res.status(404).json({ error: 'Imóvel não encontrado.' });

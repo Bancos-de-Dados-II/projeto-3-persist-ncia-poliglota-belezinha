@@ -1,4 +1,6 @@
 import Imovel from '../model/Imovel.js';
+import {redisClient} from '../database/redisClient.js';
+
 
 export default class CriarImovelController {
   static async criarImovel(req, res) {
@@ -30,7 +32,7 @@ export default class CriarImovelController {
 
       // Salvamento do imóvel no banco de dados
       await imovel.save();
-
+      await redisClient.del('imoveis');
       // Resposta com o imóvel criado
       res.status(201).json(imovel);
     } catch (error) {
