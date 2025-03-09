@@ -8,9 +8,29 @@ body{
 }
 
 
+.div-links{
+   padding: 10px;
+   height: 50px;
+}
+a{
+   text-decoration: none
+}
 
-
-
+#vergraficos{
+   border: 1px solid #ddd;
+   border-radius: 4px;
+   outline: none;
+   height: 30px;
+   width: 100px;
+   padding: 10px;
+   display:flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+   background-color: #007bff;
+   color: white;
+   
+}
 .div-map .buscar-localizacao{
  padding-bottom: 10px;    
 }
