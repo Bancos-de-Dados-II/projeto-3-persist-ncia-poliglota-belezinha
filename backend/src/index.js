@@ -10,6 +10,7 @@ app.use(cors());
 conectarMongoDB();
 app.use('/api/imoveis', imovelRoutes);
 
+
 app.listen(3000, () => {
   console.log(`Conectando com URL: ${process.env.MONGO_URL}`);
 
