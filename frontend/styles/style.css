@@ -29,8 +29,13 @@ a{
    cursor: pointer;
    background-color: #007bff;
    color: white;
-   
+
 }
+
+#vergraficos:hover{
+   background-color: #008bff;
+}
+
 .div-map .buscar-localizacao{
  padding-bottom: 10px;    
 }
